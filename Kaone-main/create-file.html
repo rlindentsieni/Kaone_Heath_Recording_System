@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="auto">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="" />
+    <meta
+      name="author"
+      content="Mark Otto, Jacob Thornton, and Bootstrap contributors"
+    />
+    <meta name="generator" content="Hugo 0.122.0" />
+    <title>Create File</title>
+
+    <link
+      rel="canonical"
+      href="https://getbootstrap.com/docs/5.3/examples/pricing/"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@docsearch/css@3"
+    />
+
+    <link href="./assets/dist/css/bootstrap.min.css" rel="stylesheet" />
+  </head>
+  <body
+    style="
+      height: 100vh;
+      background-image: url(./assets/img/clinical-reception.jpg);
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-attachment: fixed;
+    "
+  >
+    <div style="background-color: rgba(0, 0, 0, 0.541)">
+      <div class="container p-4">
+        <div class="mx-auto bg-success p-4 rounded" style="max-width: 650px">
+          <div class="d-flex gap-4">
+            <a href="./index.html" class="btn btn-outline-light px-3 fw-bold"
+              ><svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-arrow-left fw-bold"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"
+                />
+              </svg>
+            </a>
+            <h2 style="color: white">Create Patient File</h2>
+          </div>
+
+          <form class="p-3 mt-4" id="createFileForm">
+            <p
+              class="text-center fw-bold"
+              style="color: white; font-size: x-large"
+            >
+              Enter your details to create your clinic patient file
+            </p>
+            <div class="mb-3">
+              <label
+                for="idNumber"
+                class="form-label"
+                style="color: white; font-size: large"
+                >ID Number</label
+              >
+              <input
+                type="text"
+                class="form-control p-3 bg-light dark"
+                id="idNumber"
+                required
+                placeholder="Enter your ID Number"
+                maxlength="13"
+              />
+            </div>
+
+            <div class="mb-3">
+              <label
+                for="firstName"
+                class="form-label"
+                style="color: white; font-size: large"
+                >First Name</label
+              >
+              <input
+                type="text"
+                class="form-control p-3"
+                id="firstName"
+                required
+                placeholder="Enter your first name"
+              />
+            </div>
+
+            <div class="mb-3">
+              <label
+                for="lastName"
+                class="form-label"
+                style="color: white; font-size: large"
+                >Last Name</label
+              >
+              <input
+                type="text"
+                class="form-control p-3"
+                id="lastName"
+                required
+                placeholder="Enter your last name"
+              />
+            </div>
+
+            <div class="row">
+              <div class="mb-3 col-sm-12 col-md-6">
+                <label
+                  for="gender"
+                  class="form-label"
+                  style="color: white; font-size: large"
+                  >Gender</label
+                >
+                <select id="gender" class="form-select p-3">
+                  <option value="" selected>Choose gender</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                </select>
+              </div>
+
+              <div class="mb-3 col-sm-12 col-md-6">
+                <label
+                  for="age"
+                  class="form-label"
+                  style="color: white; font-size: large"
+                  >Age</label
+                >
+                <input
+                  type="number"
+                  class="form-control p-3"
+                  id="age"
+                  required
+                  placeholder="Enter your age"
+                />
+              </div>
+            </div>
+
+            <div class="mb-3 row">
+              <p class="col-12 mt-2" style="color: white; font-size: x-large">
+                Residentail Address
+              </p>
+              <div class="mb-3 col-12">
+                <label
+                  for="streetName"
+                  class="form-label"
+                  style="color: white; font-size: large"
+                  >Street Name</label
+                >
+                <input
+                  type="text"
+                  class="form-control p-3"
+                  id="streetName"
+                  required
+                  placeholder="Enter your street address"
+                />
+              </div>
+
+              <div class="mb-3 col-sm-12 col-md-6">
+                <label
+                  for="suburb"
+                  class="form-label"
+                  style="color: white; font-size: large"
+                  >Suburb</label
+                >
+                <input
+                  type="text"
+                  class="form-control p-3"
+                  id="suburb"
+                  required
+                  placeholder="Enter your suburb name"
+                />
+              </div>
+
+              <div class="mb-3 col-sm-12 col-md-6">
+                <label
+                  for="city"
+                  class="form-label"
+                  style="color: white; font-size: large"
+                  >City</label
+                >
+                <input
+                  type="text"
+                  class="form-control p-3"
+                  id="city"
+                  required
+                  placeholder="Enter your city"
+                />
+              </div>
+
+              <div class="mb-3 col-sm-12 col-md-6">
+                <label
+                  for="province"
+                  class="form-label"
+                  style="color: white; font-size: large"
+                  >Province</label
+                >
+                <select id="province" class="form-select p-3" required>
+                  <option value="" selected>Choose province</option>
+                  <option value="Eastern Cape">Eastern Cape</option>
+                  <option value="Free State">Free State</option>
+                  <option value="Gauteng">Gauteng</option>
+                  <option value="KwaZulu-Natal">KwaZulu-Natal</option>
+                  <option value="Limpopo">Limpopo</option>
+                  <option value="Mpumalanga">Mpumalanga</option>
+                  <option value="Northern Cape">Northern Cape</option>
+                  <option value="North West">North West</option>
+                  <option value="Western Cape">Western Cape</option>
+                </select>
+              </div>
+
+              <div class="mb-3 col-sm-12 col-md-6">
+                <label
+                  for="zip"
+                  class="form-label"
+                  style="color: white; font-size: large"
+                  >Zip Code</label
+                >
+                <input
+                  type="text"
+                  class="form-control p-3"
+                  id="zip"
+                  required
+                  placeholder="Enter your zip code"
+                />
+              </div>
+            </div>
+
+            <div class="me-0 overflow-hidden">
+              <button
+                class="btn btn-outline-light bg-dark btn-md p-3 px-5 fw-bold mt-3 me-0"
+                style="color: white; font-size: large; float: right"
+                type="submit"
+              >
+                Create File
+                <div
+                  class="spinner-border text-light visually-hidden"
+                  id="spinner"
+                  role="status"
+                >
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <script src="./assets/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
+      import {
+        getFirestore,
+        collection,
+        query,
+        getDocs,
+        setDoc,
+        doc,
+        serverTimestamp,
+        where,
+      } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
+
+      // Firebase configuration
+      /*const firebaseConfig = {
+        apiKey: "AIzaSyAOOCDRWSt4V5CNfjTSl-yKl-xZ6AbsQj0",
+        authDomain: "kaone-health.firebaseapp.com",
+        projectId: "kaone-health",
+        storageBucket: "kaone-health.firebasestorage.app",
+        messagingSenderId: "519508414688",
+        appId: "1:519508414688:web:24b736947e5c75f5fd0085",
+        measurementId: "G-J2RHXPYS9P",
+      };*/
+      const firebaseConfig = {
+        apiKey: "AIzaSyAnlej10jw6Hl1YbfWRwg8BiCJd3unANBc",
+        authDomain: "khrs-project.firebaseapp.com",
+        databaseURL: "https://khrs-project-default-rtdb.europe-west1.firebasedatabase.app",
+        projectId: "khrs-project",
+        storageBucket: "khrs-project.firebasestorage.app",
+        messagingSenderId: "8917025678",
+        appId: "1:8917025678:web:2d724ee648ff8c90625adf"
+        };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const db = getFirestore(app); // Firestore reference
+
+      document
+        .getElementById("createFileForm")
+        .addEventListener("submit", async function (e) {
+          e.preventDefault();
+
+          const button = e.target.querySelector("button[type='submit']");
+          const spinner = document.getElementById("spinner");
+
+          // Show spinner and disable button
+          spinner.classList.remove("visually-hidden");
+          button.disabled = true;
+
+          const idNumber = document.getElementById("idNumber").value;
+          const firstName = document.getElementById("firstName").value;
+          const lastName = document.getElementById("lastName").value;
+          const gender = document.getElementById("gender").value;
+          const age = document.getElementById("age").value; // Keep as a string if necessary
+          const streetName = document.getElementById("streetName").value;
+          const suburb = document.getElementById("suburb").value;
+          const city = document.getElementById("city").value;
+          const province = document.getElementById("province").value;
+          const zip = document.getElementById("zip").value;
+
+          if (
+            !idNumber ||
+            !firstName ||
+            !lastName ||
+            !gender ||
+            !age ||
+            !streetName ||
+            !suburb ||
+            !city ||
+            !province ||
+            !zip
+          ) {
+            alert("All fields are required to continue");
+            // Hide spinner and re-enable button
+            spinner.classList.add("visually-hidden");
+            button.disabled = false;
+            return;
+          }
+
+          try {
+            const response = await createFile(
+              idNumber,
+              firstName,
+              lastName,
+              gender,
+              age,
+              streetName,
+              suburb,
+              city,
+              zip,
+              province
+            );
+
+            if (response && "error" in response) {
+              alert(response.error);
+            } else {
+              alert(
+                "Patient file created successfully for ID Number: " + idNumber +
+                "Go back to home page and click get a queue number button "
+              );
+              // Clear the form on success
+              e.target.reset();
+            }
+          } catch (error) {
+            console.error("Error creating user:", error);
+            alert("An error occurred. Please try again.");
+          } finally {
+            // Hide spinner and re-enable button
+            spinner.classList.add("visually-hidden");
+            button.disabled = false;
+          }
+        });
+
+      async function createFile(
+        idNumber,
+        firstName,
+        lastName,
+        gender,
+        age,
+        streetName,
+        suburb,
+        city,
+        zip,
+        province
+      ) {
+        try {
+          // Check if the document already exists
+          const patientsCollection = collection(db, "patients");
+          const queryPatients = query(
+            patientsCollection,
+            where("idNumber", "==", idNumber)
+          );
+          const querySnapshot = await getDocs(queryPatients);
+
+          if (!querySnapshot.empty) {
+            return {
+              error:
+                "File with the provided ID Number already exists: " + idNumber,
+            };
+          }
+
+          // Add a new document
+          const newDocRef = doc(patientsCollection); // Auto-generate document ID
+          await setDoc(newDocRef, {
+            idNumber,
+            firstName,
+            lastName,
+            gender,
+            age,
+            address: {
+              streetName,
+              suburb,
+              city,
+              zip,
+              province,
+            },
+            createdAt: serverTimestamp(),
+            verified: "false",
+          });
+
+          return { success: true };
+        } catch (error) {
+          return { error: error.message };
+        }
+      }
+    </script>
+  </body>
+</html>

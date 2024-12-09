@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="auto">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="" />
+    <meta
+      name="author"
+      content="Mark Otto, Jacob Thornton, and Bootstrap contributors"
+    />
+    <meta name="generator" content="Hugo 0.122.0" />
+    <title>Track visit</title>
+
+    <link
+      rel="canonical"
+      href="https://getbootstrap.com/docs/5.3/examples/pricing/"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@docsearch/css@3"
+    />
+
+    <link href="./assets/dist/css/bootstrap.min.css" rel="stylesheet" />
+  </head>
+  <body
+    style="
+      height: 100vh;
+      background-image: url(./assets/img/clinical-reception.jpg);
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-attachment: fixed;
+    "
+  >
+    <div style="background-color: rgba(0, 0, 0, 0.541)">
+      <div class="container p-4">
+        <div class="mx-auto bg-success p-4 rounded" style="max-width: 650px">
+          <div class="">
+            <h2 style="color: white; text-align: center">
+              Patient's Visit Details
+            </h2>
+          </div>
+
+          <p class="text-center fw-medium p-4 rounded mb-4 text-light">
+            This information updates in real time based on the patient's
+            interaction with the Nurses.
+          </p>
+
+          <div
+            class="mt-4 text-center fw-bold p-3 rounded mb-4"
+            style="
+              color: black;
+              font-size: large;
+              background-color: rgb(230, 230, 230);
+            "
+          >
+            <p class="col-12 mt-2 text-center" style="font-size: x-large">
+              Que Number:
+            </p>
+            <p
+              class="mb-3 fw-bold text-center"
+              style="font-size: xx-large"
+              id="queNumber"
+            >
+              ...
+            </p>
+            <div class="mt-4 table-responsive rounded" style="color: gray">
+              <table
+                class="table table-md align-middle"
+                style="background: none"
+              >
+                <tbody class="text-start">
+                  <tr>
+                    <td>Patient ID:</td>
+                    <td id="idNumber">...</td>
+                  </tr>
+                  <tr>
+                    <td>Frequency:</td>
+                    <td id="isFirstTime">...</td>
+                  </tr>
+                  <tr>
+                    <td>Type:</td>
+                    <td id="isMedicineCollection">...</td>
+                  </tr>
+                  <tr>
+                    <td>Reason for visit:</td>
+                    <td id="purpose">...</td>
+                  </tr>
+                  <tr>
+                    <td>Urgency level:</td>
+                    <td id="urgencyLevel">...</td>
+                  </tr>
+                  <tr>
+                    <td>Clinic department:</td>
+                    <td id="department">...</td>
+                  </tr>
+                  <tr>
+                    <td>Status:</td>
+                    <td id="status">...</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="./assets/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
+      import {
+        getDatabase,
+        ref,
+        set,
+        get,
+        push,
+        child,
+        onValue,
+        runTransaction,
+      } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-database.js";
+
+      // Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyAOOCDRWSt4V5CNfjTSl-yKl-xZ6AbsQj0",
+        authDomain: "kaone-health.firebaseapp.com",
+        projectId: "kaone-health",
+        storageBucket: "kaone-health.firebasestorage.app",
+        messagingSenderId: "519508414688",
+        appId: "1:519508414688:web:24b736947e5c75f5fd0085",
+        measurementId: "G-J2RHXPYS9P",
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const db = getDatabase(app);
+
+      const idNumber = new URLSearchParams(window.location.search).get("id");
+
+      // get placeholder tags
+      const idNumberPH = (document.getElementById("idNumber").innerHTML =
+        idNumber);
+      const isFirstTimePH = document.getElementById("isFirstTime");
+      const purposePH = document.getElementById("purpose");
+      const isMedicineCollectionPH = document.getElementById(
+        "isMedicineCollection"
+      );
+      const urgencyLevelPH = document.getElementById("urgencyLevel");
+      const departmentPH = document.getElementById("department");
+      const statusPH = document.getElementById("status");
+      const queNumberPH = document.getElementById("queNumber");
+
+      // validate ID again
+      if (idNumber) {
+        try {
+          const dateRef = new Date().toISOString();
+          const date = dateRef.split("T")[0];
+
+          const queueRef = ref(db, `queues/${date}/${idNumber}`);
+
+          // Listen for changes in real-time
+          onValue(queueRef, (snapshot) => {
+            const data = snapshot.val(); // This gives you the entire data at the path
+            if (data) {
+              queNumberPH.innerHTML = data.queNumber;
+              isFirstTimePH.innerHTML = data.isFirstTime;
+              isMedicineCollectionPH.innerHTML = data.isMedicineCollection;
+              purposePH.innerHTML = data.purpose;
+              urgencyLevelPH.innerHTML = data.urgencyLevel;
+              departmentPH.innerHTML = data.department;
+              statusPH.innerHTML = data.status;
+            } else {
+              alert("No visit data found for this ID Number: " + idNumber);
+            }
+          });
+        } catch (error) {
+          alert("An error occurred. Please try again, " + error);
+        }
+      } else {
+        alert(
+          "Sorry, you did not provide us with your ID Number to track your visit status. 😢"
+        );
+        window.location.href = "./index.html#formSection";
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="auto">
+  <head>
+    <script src="../assets/js/color-modes.js"></script>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="" />
+    <meta
+      name="author"
+      content="Mark Otto, Jacob Thornton, and Bootstrap contributors"
+    />
+    <meta name="generator" content="Hugo 0.122.0" />
+    <title>Signin Template · Bootstrap v5.3</title>
+
+    <link
+      rel="canonical"
+      href="https://getbootstrap.com/docs/5.3/examples/sign-in/"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@docsearch/css@3"
+    />
+
+    <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <style>
+      html,
+      body {
+        height: 100%;
+      }
+
+      .form-signin .form-floating:focus-within {
+        z-index: 2;
+      }
+
+      .form-signin input[type="email"] {
+        margin-bottom: -1px;
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
+      }
+
+      .form-signin input[type="password"] {
+        margin-bottom: 10px;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+      }
+    </style>
+  </head>
+  <body class="d-flex align-items-center py-4 bg-body-tertiary">
+    <main
+      class="form-signin w-100 m-auto"
+      style="max-width: 330px; padding: 1rem"
+    >
+      <form id="signInForm">
+        <div class="text-start">
+          <img
+            class="mb-4"
+            src="../assets/img/logo.png"
+            alt=""
+            width="72"
+            height="57"
+          />
+          <p class="fs-3 mb-3 fw-bold text-success">Admin sign in</p>
+        </div>
+
+        <div class="form-floating">
+          <input
+            type="email"
+            class="form-control"
+            id="email"
+            placeholder="name@example.com"
+            required
+          />
+          <label for="email">Email address</label>
+        </div>
+        <div class="form-floating">
+          <input
+            type="password"
+            class="form-control"
+            id="password"
+            placeholder="Password"
+            required
+          />
+          <label for="password">Password</label>
+        </div>
+
+        <div class="nav-item text-start my-3">
+          <a class="text-decoration-none link-secondary" href="#"
+            >Forgot Password</a
+          >
+        </div>
+        <button class="btn btn-success w-100 py-2 btn-md" type="submit">
+          Sign in
+        </button>
+      </form>
+    </main>
+    <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script type="module">
+      // Import the functions you need from the SDKs you need
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
+      import {
+        getAuth,
+        signInWithEmailAndPassword,
+        sendEmailVerification,
+      } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
+
+      // TODO: Add SDKs for Firebase products that you want to use
+      // https://firebase.google.com/docs/web/setup#available-libraries
+
+      // Your web app's Firebase configuration
+      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+      const firebaseConfig = {
+        apiKey: "AIzaSyAOOCDRWSt4V5CNfjTSl-yKl-xZ6AbsQj0",
+        authDomain: "kaone-health.firebaseapp.com",
+        projectId: "kaone-health",
+        storageBucket: "kaone-health.firebasestorage.app",
+        messagingSenderId: "519508414688",
+        appId: "1:519508414688:web:24b736947e5c75f5fd0085",
+        measurementId: "G-J2RHXPYS9P",
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+
+      const auth = getAuth(app);
+
+      document
+        .getElementById("signInForm")
+        .addEventListener("submit", async function (e) {
+          e.preventDefault();
+
+          const email = document.getElementById("email").value;
+          const password = document.getElementById("password").value;
+
+          if (!email && !password) {
+            alert("Enter your email and password to log in.");
+            return;
+          }
+
+          if (email && password) {
+            try {
+              const userCredential = await signInWithEmailAndPassword(
+                auth,
+                email,
+                password
+              );
+              const user = userCredential.user;
+
+              if (user) {
+                if (user.emailVerified) {
+                  window.location.href = "./dashboard.html";
+                } else {
+                  await sendEmailVerification(user);
+                  await auth.signOut(); // Optional but ensures security
+                  alert(
+                    "Please verify your email before logging in. Check your emails."
+                  );
+                }
+              } else {
+                alert("There was an error signing you in, please try again.");
+              }
+            } catch (error) {
+              // Display user-friendly error messages
+              if (error.code === "auth/wrong-password") {
+                alert("Incorrect password. Please try again.");
+              } else if (error.code === "auth/user-not-found") {
+                alert("No account found with this email.");
+              } else {
+                alert("Error signing in: " + error.message);
+              }
+            }
+          }
+        });
+    </script>
+  </body>
+</html>

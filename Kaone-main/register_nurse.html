@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nurse Registration - Kaone Health System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore.js"></script>
+    <style>
+        body {
+            background-color: #f4f6f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .registration-container {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 100%;
+            padding: 40px;
+        }
+        .registration-header img {
+            max-width: 100px;
+            margin-bottom: 20px;
+        }
+        .btn-primary {
+            background-color: #198754;
+            border-color: #198754;
+        }
+        .btn-primary:hover {
+            background-color: #157347;
+            border-color: #157347;
+        }
+        .login-link a {
+            color: #198754;
+        }
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+        .button{
+          align-self: flex-start !important;
+          margin-bottom: 0 !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="container d-flex flex-column align-items-center">
+        <!-- Back Button -->
+        <div class="mb-4 button">
+            <a href="index.html" class="btn btn-outline-secondary">
+                <i class="bi bi-arrow-left"></i> Back
+            </a>
+        </div>
+
+        <!-- Registration Form -->
+        <div class="registration-container">
+            <div class="registration-header text-center">
+                <!-- <img src="images/logoWhite.png" alt="Kaone Health Logo"> -->
+                <h2 class="fw-bold">Nurse Registration</h2>
+                <p class="text-muted">Fill in your details to create an account</p>
+            </div>
+            
+            <form id="nurseRegistrationForm" onsubmit="return validateRegistration(event)">
+                <div class="mb-3">
+                    <label for="firstName" class="form-label">First Name</label>
+                    <input type="text" class="form-control" id="firstName" placeholder="Enter your first name" required>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="lastName" class="form-label">Last Name</label>
+                    <input type="text" class="form-control" id="lastName" placeholder="Enter your last name" required>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="emailInput" class="form-label">Email address</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+                        <input type="email" class="form-control" id="emailInput" placeholder="Enter your email" required>
+                    </div>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="phoneInput" class="form-label">Phone Number</label>
+                    <input type="tel" class="form-control" id="phoneInput" placeholder="Enter your phone number" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="departmentInput" class="form-label">Department</label>
+                    <input type="tel" class="form-control" id="departmentInput" placeholder="Enter your Department" required>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="passwordInput" class="form-label">Password</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                        <input type="password" class="form-control" id="passwordInput" placeholder="Enter your password" required>
+                        <button class="btn btn-outline-secondary" type="button" id="passwordToggle">
+                            <i class="bi bi-eye"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="confirmPasswordInput" class="form-label">Confirm Password</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-lock-fill"></i></span>
+                        <input type="password" class="form-control" id="confirmPasswordInput" placeholder="Confirm your password" required>
+                    </div>
+                </div>
+                <div id="errorMessage" class="text-danger"></div>
+                <button type="submit" class="btn btn-primary w-100">Register</button>
+            </form>
+            
+            <!-- Login Link -->
+            <div class="login-link text-center mt-3">
+                <p class="text-muted">Already a Nurse? 
+                    <a href="nurse_login.html" class="text-decoration-none fw-bold">Login here</a>.
+                </p>
+            </div>
+
+            <div class="text-center mt-3 text-muted">
+                <p>© 2024 Kaone Health System. All Rights Reserved.</p>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        // Firebase imports
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { getAuth, createUserWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+        import { getFirestore, doc, setDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+
+        const firebaseConfig = {
+        apiKey: "AIzaSyAnlej10jw6Hl1YbfWRwg8BiCJd3unANBc",
+        authDomain: "khrs-project.firebaseapp.com",
+        databaseURL: "https://khrs-project-default-rtdb.europe-west1.firebasedatabase.app",
+        projectId: "khrs-project",
+        storageBucket: "khrs-project.firebasestorage.app",
+        messagingSenderId: "8917025678",
+        appId: "1:8917025678:web:2d724ee648ff8c90625adf"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        // Form submission handler
+        document.getElementById('nurseRegistrationForm').addEventListener('submit', async (event) => {
+            event.preventDefault();
+            
+            // Clear previous error message
+            const errorMessageEl = document.getElementById('errorMessage');
+            errorMessageEl.textContent = '';
+
+            // Get form values
+            const name = document.getElementById('firstName').value +" "+ document.getElementById('lastName').value
+            const department = document.getElementById('departmentInput').value;
+            const email = document.getElementById('emailInput').value;
+            const phone = document.getElementById('phoneInput').value;
+            const password = document.getElementById('passwordInput').value;
+            const confirmPassword = document.getElementById('confirmPasswordInput').value;
+
+            // Validate inputs
+            if (password !== confirmPassword) {
+                errorMessageEl.textContent = 'Passwords do not match';
+                return;
+            }
+
+            try {
+                // Create user in Firebase Authentication
+                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                const user = userCredential.user;
+
+                // Add user to nurses collection in Firestore
+                await setDoc(doc(db, 'Nurses', user.uid), {
+                    name: name,
+                    // lastName: lastName,
+                    department: department,
+                    email: email,
+                    contactNumber: phone,
+                    role: 'nurse',
+                    createdAt: serverTimestamp()
+                });
+
+                // Redirect to nurse dashboard
+                window.location.href = 'nurse_dashboard.html';
+            } catch (error) {
+                // Handle errors
+                console.error('Registration error:', error);
+                
+                switch(error.code) {
+                    case 'auth/email-already-in-use':
+                        errorMessageEl.textContent = 'Email is already registered';
+                        break;
+                    case 'auth/invalid-email':
+                        errorMessageEl.textContent = 'Invalid email address';
+                        break;
+                    case 'auth/weak-password':
+                        errorMessageEl.textContent = 'Password is too weak. Use a stronger password.';
+                        break;
+                    default:
+                        errorMessageEl.textContent = 'Registration failed. Please try again.';
+                }
+            }
+        });
+
+        // Password toggle visibility
+        document.getElementById('passwordToggle').addEventListener('click', function() {
+            const passwordInput = document.getElementById('passwordInput');
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            this.querySelector('i').classList.toggle('bi-eye');
+            this.querySelector('i').classList.toggle('bi-eye-slash');
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+</body>
+</html>

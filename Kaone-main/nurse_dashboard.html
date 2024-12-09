@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nurse Dashboard</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://cdn.quilljs.com/1.3.7/quill.snow.css" rel="stylesheet">
+    <script src="https://cdn.quilljs.com/1.3.7/quill.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
+    <!-- For Quill -->
+    
+
+    <style>
+        body {
+            background-color: #f4f4f4;
+        }
+
+        .card {
+            border: none;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar {
+            min-height: 100vh;
+        }
+
+        .nav-link {
+            margin-bottom: 0.5rem;
+        }
+
+        .nav-link:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+
+        .chart-card {
+            margin-bottom: 20px;
+        }
+
+        .chart-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        /* Fix for charts position and card layout */
+        .table-responsive {
+            margin-bottom: 40px;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <nav class="col-md-2 d-md-block text-white bg-success sidebar" id="sidebar">
+                <div class="position-sticky">
+                    <div class="text-center py-4 sidebar-content">
+                        <img src="assets/img/dashboard user icon.jpg" alt="Profile" class="rounded-circle border border-light" id="profile-icon" width="60px" height="60px">
+                        <h2 class="text-white" id="nurse-name">Nurse Name</h2>
+                    </div>
+                    <ul class="nav flex-column sidebar-content">
+                        <li class="nav-item"><a class="nav-link text-white" href="#" id="profile-link">My Profile</a></li>
+                        <li class="nav-item"><a class="nav-link text-white fw-bold" href="#" onclick="logout()">Logout</a></li>
+                    </ul>
+                </div>
+                <button class="btn btn-success sidebar-toggle" id="sidebarToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </nav>
+
+            <!-- Main Content -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <header class="py-3">
+                    <h1 class="h3">Nurse Dashboard</h1>
+                </header>
+
+                <!-- Filters -->
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <select id="statusFilter" class="form-select">
+                            <option value="">Filter by Admission Status</option>
+                            <option value="Admitted">Admitted</option>
+                            <option value="On Hold">On Hold</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <select id="genderFilter" class="form-select">
+                            <option value="">Filter by Gender</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Stats -->
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <div class="card ">
+                            <div class="card-body">
+                                <h5 class="card-title">Total Queued Patients</h5>
+                                <p id="total-queue-patients" class="card-text">Loading...</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Assigned Patients</h5>
+                                <p id="total-assigned-patients" class="card-text">Loading...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                
+
+                <!-- Charts Grid -->
+                <div class="chart-grid">
+                    <div class="chart-card">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Gender Distribution</h5>
+                                <canvas id="patientGenderChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chart-card">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Patient Race Distribution</h5>
+                                <canvas id="admissionStatusChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chart-card">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Patient Age Distribution</h5>
+                                <canvas id="dailyPatientTrendsChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Patients Table -->
+                <div class="table-responsive">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">My Patient Queue</h5>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>File Number</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <!-- <tbody id="patients-table-body">
+                                </tbody> -->
+                                <tbody id="queue-table-body">
+                                    <!-- Dynamic patient queue data -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Patient Details Modal -->
+                <div class="modal fade" id="patientModal" tabindex="-1" aria-labelledby="patientModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header text-white bg-success">
+                                <h5 class="modal-title" id="patientModalLabel">Patient Details</h5>
+                                <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form id="patient-form">
+                                    <input type="hidden" id="patient-id" value="">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="mb-3">
+                                                <label for="patient-assigned-nurse" class="form-label">Assigned Nurse</label>
+                                                <select class="form-select" id="patient-assigned-nurse">
+                                                    <option value="">Select Nurse</option>
+                                                    <!-- Nurses will be dynamically populated here -->
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <h6>Patient Information</h6>
+                                            <div class="mb-3">
+                                                <label for="patient-first-name" class="form-label">First Name</label>
+                                                <input type="text" class="form-control" id="patient-first-name" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="patient-last-name" class="form-label">Last Name</label>
+                                                <input type="text" class="form-control" id="patient-last-name" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="patient-file-number" class="form-label">File Number</label>
+                                                <input type="text" class="form-control" id="patient-file-number">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="patient-address" class="form-label">Physical Address</label>
+                                                <input type="text" class="form-control" id="patient-address">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="patient-gender" class="form-label">Gender</label>
+                                                <select class="form-select" id="patient-gender">
+                                                    <option value="">Select Gender</option>
+                                                    <option value="Male">Male</option>
+                                                    <option value="Female">Female</option>
+                                                    <option value="Other">Other</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <h6>Contact & Status</h6>
+                                            <div class="mb-3">
+                                                <label for="patient-contact" class="form-label">Contact Number</label>
+                                                <input type="tel" class="form-control" id="patient-contact">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="patient-email" class="form-label">Email</label>
+                                                <input type="email" class="form-control" id="patient-email">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="patient-admission-status" class="form-label">Admission Status</label>
+                                                <select class="form-select" id="patient-admission-status">
+                                                    <option value="">Select Status</option>
+                                                    <option value="Admitted">Admitted</option>
+                                                    <option value="On Hold">On Hold</option>
+                                                    <option value="Nurse Assigned">Nurse Assigned</option>
+                                                </select>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="patient-race" class="form-label">Race</label>
+                                                <input type="text" class="form-control" id="patient-race">
+                                            </div>
+                                        </div>
+                                    </div>
+                
+                                    <hr>
+                
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <h6>Next of Kin</h6>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="mb-3">
+                                                        <label for="next-of-kin-first-name" class="form-label">First Name</label>
+                                                        <input type="text" class="form-control" id="next-of-kin-first-name">
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="next-of-kin-last-name" class="form-label">Last Name</label>
+                                                        <input type="text" class="form-control" id="next-of-kin-last-name">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="mb-3">
+                                                        <label for="next-of-kin-contact" class="form-label">Contact Number</label>
+                                                        <input type="tel" class="form-control" id="next-of-kin-contact">
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="next-of-kin-email" class="form-label">Email</label>
+                                                        <input type="email" class="form-control" id="next-of-kin-email">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="mb-3">
+                                                        <label for="next-of-kin-address" class="form-label">Physical Address</label>
+                                                        <input type="text" class="form-control" id="next-of-kin-address">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="patient-medical-notes" class="form-label">Medical Notes</label>
+                                        <textarea class="form-control" id="patient-medical-notes" rows="5"></textarea>
+                                    </div>
+                                    
+                                    <div id="spinner" style="display:none;" class="text-center">
+                                        <div class="spinner-border" role="status">
+                                            <span class="visually-hidden">Loading...</span>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" form="patient-form" class="btn btn-primary" id="save-patient-button">Save Changes</button>
+                                <button type="button" class="btn btn-danger" id="delete-patient-button">Delete Patient</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </main>
+        </div>
+    </div>
+
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyAnlej10jw6Hl1YbfWRwg8BiCJd3unANBc",
+            authDomain: "khrs-project.firebaseapp.com",
+            databaseURL: "https://khrs-project-default-rtdb.europe-west1.firebasedatabase.app",
+            projectId: "khrs-project",
+            storageBucket: "khrs-project.firebasestorage.app",
+            messagingSenderId: "8917025678",
+            appId: "1:8917025678:web:2d724ee648ff8c90625adf"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const firestore = firebase.firestore();
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Check if user is authenticated
+            auth.onAuthStateChanged((user) => {
+                if (!user) {
+                    // If not logged in, redirect to login page
+                    window.location.href = 'nurse_login.html';
+                } else {
+                    // Fetch and display nurse profile
+                    fetchNurseProfile(user.uid);
+                    // Load initial dashboard data
+                    loadDashboardData(user.uid);
+                    loadCharts();
+                }
+            });
+
+            // Navigation event listeners
+            document.getElementById('profile-link').addEventListener('click', showProfile);
+            document.getElementById('dashboard-link').addEventListener('click', loadDashboardData);
+            document.getElementById('queue-link').addEventListener('click', loadNurseQueue);
+            // document.getElementById('patients-link').addEventListener('click', loadAllPatients);
+        });
+
+        function fetchNurseProfile(nurseId) {
+            firestore.collection('Nurses').doc(nurseId).get()
+                .then((doc) => {
+                    if (doc.exists) {
+                        const nurseData = doc.data();
+                        document.getElementById('nurse-name').textContent = 
+                            `${nurseData.name}`;
+                    }
+                })
+                .catch((error) => {
+                    console.error("Error fetching nurse profile:", error);
+                });
+        }
+
+        function loadDashboardData(nurseId) {
+            firestore.collection('patients').where('assignedNurse', '==', nurseId).get()
+                .then(snapshot => {
+                    let assignedCount = snapshot.size;
+                    document.getElementById('total-assigned-patients').textContent = assignedCount;
+
+                    firestore.collection('patients').where('admissionStatus', '==', 'Nurse Assigned').get()
+                        .then(snapshot => {
+                            let queueCount = snapshot.size;
+                            document.getElementById('total-queue-patients').textContent = queueCount;
+                        });
+                })
+                .catch(error => console.error('Error loading dashboard data:', error));
+        }
+
+
+
+        // Function to load the patient's queue for the nurse
+        function loadNurseQueue() {
+    const user = firebase.auth().currentUser;
+    if (!user) {
+        console.error('No authenticated user');
+        return;
+    }
+
+    const nurseId = user.uid;
+
+    // Remove orderBy if it causes index issues
+    firestore.collection('patients')
+        .where('assignedNurse', '==', nurseId)
+        .get()
+        .then((snapshot) => {
+            const queueTableBody = document.getElementById('queue-table-body');
+            queueTableBody.innerHTML = '';  // Clear existing table rows
+
+            if (snapshot.empty) {
+                const noDataRow = document.createElement('tr');
+                const noDataCell = document.createElement('td');
+                noDataCell.setAttribute('colspan', '4');
+                noDataCell.textContent = 'No patients in your queue';
+                noDataCell.classList.add('text-center');
+                noDataRow.appendChild(noDataCell);
+                queueTableBody.appendChild(noDataRow);
+                return;
+            }
+
+            // Manually sort by createdAt date
+            const sortedPatients = snapshot.docs.sort((a, b) => {
+                const dateA = a.data().createdAt?.toDate() || new Date(0);
+                const dateB = b.data().createdAt?.toDate() || new Date(0);
+                return dateB - dateA;
+            });
+
+            sortedPatients.forEach((doc) => {
+                const patientData = doc.data();
+
+                const row = document.createElement('tr');
+
+                const nameCell = document.createElement('td');
+                nameCell.textContent = `${patientData.firstName} ${patientData.lastName}`;
+                row.appendChild(nameCell);
+
+                const fileNumberCell = document.createElement('td');
+                fileNumberCell.textContent = patientData.idNumber;
+                row.appendChild(fileNumberCell);
+
+                const statusCell = document.createElement('td');
+                statusCell.textContent = patientData.admissionStatus;
+                row.appendChild(statusCell);
+
+                const actionsCell = document.createElement('td');
+                const viewButton = document.createElement('button');
+                viewButton.classList.add('btn', 'btn-success', 'btn-sm');
+                viewButton.textContent = 'View';
+                viewButton.addEventListener('click', () => openPatientModal({ ...patientData, id: doc.id }));
+                actionsCell.appendChild(viewButton);
+                row.appendChild(actionsCell);
+
+                queueTableBody.appendChild(row);
+            });
+        })
+        .catch((error) => {
+            console.error('Error loading patient queue:', error);
+        });
+}
+
+        // Ensure the patient queue is loaded when the page is ready
+        document.addEventListener('DOMContentLoaded', () => {
+            firebase.auth().onAuthStateChanged((user) => {
+                if (user) {
+                    const nurseId = user.uid;
+                    loadNurseQueue(nurseId);  // Load the nurse's patient queue
+                }
+            });
+        });
+
+        function loadCharts() {
+    // Get the current authenticated user
+    const user = firebase.auth().currentUser;
+    if (!user) {
+        console.error('No authenticated user');
+        return;
+    }
+
+    const nurseId = user.uid;
+
+    // Fetch patients for the current nurse
+    firestore.collection('patients')
+        .where('assignedNurse', '==', nurseId)
+        .get()
+        .then((snapshot) => {
+            // Prepare data for charts
+            const patients = snapshot.docs.map(doc => doc.data());
+
+            // Gender Distribution Chart
+            const genderCounts = patients.reduce((acc, patient) => {
+                if (patient.gender) {
+                    acc[patient.gender] = (acc[patient.gender] || 0) + 1;
+                }
+                return acc;
+            }, {});
+
+            const genderLabels = Object.keys(genderCounts);
+            const genderData = genderLabels.map(gender => genderCounts[gender]);
+
+            // Race Distribution Chart
+            const raceCounts = patients.reduce((acc, patient) => {
+                const race = patient.race || 'Unspecified';
+                acc[race] = (acc[race] || 0) + 1;
+                return acc;
+            }, {});
+
+            const raceLabels = Object.keys(raceCounts);
+            const raceData = raceLabels.map(race => raceCounts[race]);
+
+            // Age Distribution Chart
+            const ageGroups = {
+                '0-18': patients.filter(p => parseInt(p.age) <= 18).length,
+                '19-35': patients.filter(p => parseInt(p.age) >= 19 && parseInt(p.age) <= 35).length,
+                '36-50': patients.filter(p => parseInt(p.age) >= 36 && parseInt(p.age) <= 50).length,
+                '51+': patients.filter(p => parseInt(p.age) > 50).length
+            };
+
+            const ageLabels = Object.keys(ageGroups);
+            const ageData = ageLabels.map(group => ageGroups[group]);
+
+            // Clear existing charts
+            const chartContainers = [
+                'patientGenderChart', 
+                'admissionStatusChart', 
+                'dailyPatientTrendsChart'
+            ];
+            chartContainers.forEach(id => {
+                const chart = Chart.getChart(id);
+                if (chart) {
+                    chart.destroy();
+                }
+            });
+
+            // Gender Distribution Chart
+            const genderChart = new Chart(document.getElementById('patientGenderChart'), {
+                type: 'pie',
+                data: {
+                    labels: genderLabels,
+                    datasets: [{
+                        label: 'Gender Distribution',
+                        data: genderData,
+                        backgroundColor: ['#4e73df', '#1cc88a', '#f6c23e', '#e74a3b'],
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    title: {
+                        display: true,
+                        text: 'Patient Gender Distribution'
+                    }
+                }
+            });
+
+            // Race Distribution Chart
+            const raceChart = new Chart(document.getElementById('admissionStatusChart'), {
+                type: 'bar',
+                data: {
+                    labels: raceLabels,
+                    datasets: [{
+                        label: 'Patient Race Distribution',
+                        data: raceData,
+                        backgroundColor: ['#4e73df', '#1cc88a', '#f6c23e', '#e74a3b', '#36b9cc'],
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: 'Patient Race Distribution'
+                    }
+                }
+            });
+
+            // Age Distribution Chart
+            const ageChart = new Chart(document.getElementById('dailyPatientTrendsChart'), {
+                type: 'line',
+                data: {
+                    labels: ageLabels,
+                    datasets: [{
+                        label: 'Patient Age Distribution',
+                        data: ageData,
+                        backgroundColor: '#4e73df',
+                        borderColor: '#4e73df',
+                        fill: false,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    title: {
+                        display: true,
+                        text: 'Patient Age Groups'
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        })
+        .catch((error) => {
+            console.error('Error loading charts data:', error);
+        });
+}
+
+        
+        function showProfile() {
+            // Function to show nurse profile
+        }
+
+        function logout() {
+            auth.signOut().then(() => {
+                window.location.href = 'nurse_login.html';
+            });
+        }
+
+        let quill;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            quill = new Quill('#patient-medical-notes', {
+                theme: 'snow'
+            });
+        });
+
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="dashboard.js"></script>
+</body>
+</html>

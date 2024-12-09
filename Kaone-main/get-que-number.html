@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="auto">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="" />
+    <meta
+      name="author"
+      content="Mark Otto, Jacob Thornton, and Bootstrap contributors"
+    />
+    <meta name="generator" content="Hugo 0.122.0" />
+    <title>Get Que Number</title>
+
+    <link
+      rel="canonical"
+      href="https://getbootstrap.com/docs/5.3/examples/pricing/"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@docsearch/css@3"
+    />
+
+    <link href="./assets/dist/css/bootstrap.min.css" rel="stylesheet" />
+  </head>
+  <body
+    style="
+      height: 100vh;
+      background-image: url(./assets/img/clinical-reception.jpg);
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-attachment: fixed;
+    "
+  >
+    <div style="background-color: rgba(0, 0, 0, 0.541)">
+      <div class="container p-4">
+        <div class="mx-auto bg-success p-4 rounded" style="max-width: 650px">
+          <div class="d-flex gap-4">
+            <a href="./index.html" class="btn btn-outline-light px-3 fw-bold"
+              ><svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-arrow-left fw-bold"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"
+                />
+              </svg>
+            </a>
+            <h2 style="color: white">Get A Queue Number</h2>
+          </div>
+
+          <form class="p-3 mt-4" id="requestQueNumberForm">
+            <p
+              class="text-center fw-bold p-3 rounded mb-4"
+              style="
+                color: black;
+                font-size: large;
+                background-color: rgb(230, 230, 230);
+              "
+            >
+              Tell us a bit more about your visit so that we can get you on the
+              right que.
+            </p>
+
+            <p class="col-12 mt-2" style="color: white; font-size: x-large">
+              Visit Details
+            </p>
+            <div class="mb-3">
+              <label
+                for="isFirstTime"
+                class="form-label"
+                style="color: white; font-size: large"
+                >Are you a new or returning patient?</label
+              >
+              <select id="isFirstTime" class="form-select p-3" required>
+                <option value="" selected>Choose option</option>
+                <option value="New">New</option>
+                <option value="Returning">Returning</option>
+              </select>
+            </div>
+
+            <div class="mb-3">
+              <label
+                for="purpose"
+                class="form-label"
+                style="color: white; font-size: large"
+                >Reason for Visit</label
+              >
+              <textarea
+                type="text"
+                class="form-control p-3"
+                id="purpose"
+                required
+                placeholder="Brief description of symptoms or purpose (e.g., fever, vaccination, injury)."
+              ></textarea>
+            </div>
+
+            <div class="mb-3">
+              <label
+                for="isMedicineCollection"
+                class="form-label"
+                style="color: white; font-size: large"
+                >Are you here to collect medication or for a
+                consultation?</label
+              >
+              <select
+                id="isMedicineCollection"
+                class="form-select p-3"
+                required
+              >
+                <option value="" selected>Choose option</option>
+                <option value="Collect Medication">Collect Medication</option>
+                <option value="Consultation">Consultation</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+
+            <div class="mb-3">
+              <label
+                for="urgencyLevel"
+                class="form-label"
+                style="color: white; font-size: large"
+                >Urgency Level</label
+              >
+              <select id="urgencyLevel" class="form-select p-3" required>
+                <option value="" selected>Choose option</option>
+                <option value="Routine check-up">Routine check-up</option>
+                <option value="Moderate concern">Moderate concern</option>
+                <option value="Emergency">Emergency</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+
+            <p class="col-12 mt-4" style="color: white; font-size: x-large">
+              Specialised Clinics
+            </p>
+
+            <div class="mb-3">
+              <label
+                for="department"
+                class="form-label"
+                style="color: white; font-size: large"
+                >Which department do you want to visit?</label
+              >
+              <select id="department" class="form-select p-3" required>
+                <option value="" selected>Choose option</option>
+                <option value="General Medicine">General Medicine</option>
+                <option value="Family Medicine">Family Medicine</option>
+                <option value="Internal Medicine">Internal Medicine</option>
+                <option value="Pediatrics">Pediatrics</option>
+                <option value="Cardiology">Cardiology</option>
+                <option value="Pulmonology">Pulmonology</option>
+                <option value="Endocrinology">Endocrinology</option>
+                <option value="Gastroenterology">Gastroenterology</option>
+                <option value="Nephrology">Nephrology</option>
+                <option value="Neurology">Neurology</option>
+                <option value="Rheumatology">Rheumatology</option>
+                <option value="Orthopedics">Orthopedics</option>
+                <option value="Otolaryngology">Otolaryngology</option>
+                <option value="Urology">Urology</option>
+                <option value="Obstetrics and Gynecology">
+                  Obstetrics and Gynecology
+                </option>
+                <option value="Fertility and Reproductive Health">
+                  Fertility and Reproductive Health
+                </option>
+                <option value="Psychiatry">Psychiatry</option>
+                <option value="Psychology and Counseling">
+                  Psychology and Counseling
+                </option>
+                <option value="Dermatology">Dermatology</option>
+                <option value="Cosmetic/Aesthetic Medicine">
+                  Cosmetic/Aesthetic Medicine
+                </option>
+                <option value="Radiology">Radiology</option>
+                <option value="Pathology">Pathology</option>
+                <option value="Physiotherapy">Physiotherapy</option>
+                <option value="Occupational Therapy">
+                  Occupational Therapy
+                </option>
+                <option value="Speech Therapy">Speech Therapy</option>
+                <option value="Dentistry">Dentistry</option>
+                <option value="Orthodontics">Orthodontics</option>
+                <option value="Ophthalmology">Ophthalmology</option>
+                <option value="Optometry">Optometry</option>
+                <option value="Immunology">Immunology</option>
+                <option value="Allergy Clinic">Allergy Clinic</option>
+                <option value="Diabetes Clinic">Diabetes Clinic</option>
+                <option value="Hypertension Clinic">Hypertension Clinic</option>
+                <option value="Nutrition and Dietetics">
+                  Nutrition and Dietetics
+                </option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+
+            <div class="me-0 overflow-hidden">
+              <button
+                class="btn btn-outline-light bg-dark btn-md p-3 px-5 fw-bold mt-3 me-0"
+                style="color: white; font-size: large; float: right"
+                type="submit"
+              >
+                Requet Que Number
+                <div
+                  class="spinner-border text-light visually-hidden"
+                  id="spinner"
+                  role="status"
+                >
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <script src="./assets/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
+      import {
+        getFirestore,
+        collection,
+        query,
+        getDocs,
+        setDoc,
+        doc,
+        serverTimestamp,
+        where,
+      } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
+      import {
+        getDatabase,
+        ref,
+        set,
+        get,
+        push,
+        child,
+        onValue,
+        runTransaction,
+      } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-database.js";
+
+      // Firebase configuration
+      // const firebaseConfig = {
+      //   apiKey: "AIzaSyAOOCDRWSt4V5CNfjTSl-yKl-xZ6AbsQj0",
+      //   authDomain: "kaone-health.firebaseapp.com",
+      //   projectId: "kaone-health",
+      //   storageBucket: "kaone-health.firebasestorage.app",
+      //   messagingSenderId: "519508414688",
+      //   appId: "1:519508414688:web:24b736947e5c75f5fd0085",
+      //   measurementId: "G-J2RHXPYS9P",
+      // };
+      const firebaseConfig = {
+        apiKey: "AIzaSyAnlej10jw6Hl1YbfWRwg8BiCJd3unANBc",
+        authDomain: "khrs-project.firebaseapp.com",
+        databaseURL: "https://khrs-project-default-rtdb.europe-west1.firebasedatabase.app",
+        projectId: "khrs-project",
+        storageBucket: "khrs-project.firebasestorage.app",
+        messagingSenderId: "8917025678",
+        appId: "1:8917025678:web:2d724ee648ff8c90625adf"
+        };
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const firestore = getFirestore(app); // Firestore reference
+      const db = getDatabase(app);
+
+      const idNumber = new URLSearchParams(window.location.search).get("id");
+
+      document
+        .getElementById("requestQueNumberForm")
+        .addEventListener("submit", async function (e) {
+          e.preventDefault();
+
+          const button = e.target.querySelector("button[type='submit']");
+          const spinner = document.getElementById("spinner");
+
+          // Show spinner and disable button
+          spinner.classList.remove("visually-hidden");
+          button.disabled = true;
+
+          // validate ID again
+          if (idNumber) {
+            try {
+              const response = await getPatient(idNumber);
+
+              if (response && "error" in response) {
+                alert(response.error);
+                if (response && "action" in response) {
+                  window.location.href = "./create-file.html";
+                }
+              } else {
+                if (response && "action" in response) {
+                  alert(
+                    "Welcome to our clinic 👋. According to our records, a file with the provided ID Number '" +
+                      idNumber +
+                      "' is not verified receive medical care at this facility. Please go to the Reception to be verified."
+                  );
+                } else {
+                  // write logic to request que number
+                  const isFirstTime =
+                    document.getElementById("isFirstTime").value;
+                  const purpose = document.getElementById("purpose").value;
+                  const isMedicineCollection = document.getElementById(
+                    "isMedicineCollection"
+                  ).value;
+                  const department =
+                    document.getElementById("department").value;
+                  const urgencyLevel =
+                    document.getElementById("urgencyLevel").value;
+
+                  // validate fields
+                  if (
+                    !idNumber ||
+                    !purpose ||
+                    !isMedicineCollection ||
+                    !urgencyLevel ||
+                    !department
+                  ) {
+                    alert("All fields are required to continue");
+                    // Hide spinner and re-enable button
+                    spinner.classList.add("visually-hidden");
+                    button.disabled = false;
+                    return;
+                  }
+
+                  try {
+                    const response = await requestQueNumber(
+                      idNumber,
+                      isFirstTime,
+                      purpose,
+                      isMedicineCollection,
+                      urgencyLevel,
+                      department
+                    );
+
+                    if (response && "error" in response) {
+                      alert(response.error);
+                    } else {
+                      if (response && "alreadyRequested" in response) {
+                        alert(response.alreadyRequested);
+                        window.location.href =
+                          "./track-my-que-number.html?id=" + idNumber;
+                      } else {
+                        alert(
+                          "Que number requested successfully for ID Number: " +
+                            idNumber
+                        );
+                        window.location.href =
+                          "./track-my-que-number.html?id=" + idNumber;
+                      }
+
+                      // Clear the form on success
+                      e.target.reset();
+                    }
+                  } catch (error) {
+                    alert("An error occurred. Please try again.");
+                  } finally {
+                    // Hide spinner and re-enable button
+                    spinner.classList.add("visually-hidden");
+                    button.disabled = false;
+                  }
+                }
+              }
+            } catch (error) {
+              alert("An error occurred. Please try again, " + error);
+            }
+          } else {
+            alert("ID Number not found, start a new request.");
+            window.location.href = "./index.html#formSection";
+          }
+        });
+
+      async function requestQueNumber(
+        idNumber,
+        isFirstTime,
+        purpose,
+        isMedicineCollection,
+        urgencyLevel,
+        department
+      ) {
+        try {
+          const dateRef = new Date().toISOString();
+          const date = dateRef.split("T")[0];
+          console.log("Current Date:", date);
+
+          const queueRef = ref(db, `queues/${date}`);
+          const existingRef = ref(db, `queues/${date}/${idNumber}`);
+          console.log("Queue Path:", `queues/${date}`);
+
+          // Check if the patient already has a queue number
+          const snapshot = await get(existingRef);
+          if (snapshot.exists()) {
+            console.log(
+              "Patient already allocated a queue number: ",
+              snapshot.val().gueNumber
+            );
+            return {
+              alreadyRequested: `Patient already allocated a queue number: ${
+                snapshot.val().queNumber
+              }`,
+            };
+          }
+
+          let queueNumber;
+          await runTransaction(queueRef, (queueData) => {
+            console.log("Queue data before transaction:", queueData);
+
+            if (!queueData) {
+              queueData = {};
+            }
+
+            const nextNumber = Object.keys(queueData).length + 1;
+            queueNumber = String(nextNumber).padStart(3, "0");
+            console.log("Generated Queue Number:", queueNumber);
+
+            queueData[idNumber] = {
+              idNumber,
+              isFirstTime,
+              purpose,
+              isMedicineCollection,
+              urgencyLevel,
+              department,
+              queNumber: queueNumber,
+              status: "waiting",
+              createdAt: new Date().toISOString(),
+            };
+
+            console.log("Queue data after transaction:", queueData);
+            return queueData;
+          });
+
+          return { queueNumber };
+        } catch (error) {
+          console.error("Error in requestQueNumber:", error);
+          return { error: error.message };
+        }
+      }
+
+      async function getPatient(idNumber) {
+        try {
+          // Check if the document exists
+          const patientsCollection = collection(firestore, "patients");
+          const queryPatients = query(
+            patientsCollection,
+            where("idNumber", "==", idNumber)
+          );
+          const querySnapshot = await getDocs(queryPatients);
+
+          if (querySnapshot.empty) {
+            return {
+              error:
+                "Patient with ID Number '" +
+                idNumber +
+                "' does not exists. Create your file",
+              action: "Create file",
+            };
+          }
+
+          // Check if patient is verified
+          let data = null;
+          querySnapshot.forEach((doc) => {
+            data = doc.data();
+          });
+
+          if (data.verified === "false") {
+            return { action: "Go to reception to be verified" };
+          } else {
+            return { success: true };
+          }
+        } catch (error) {
+          return { error: error.message };
+        }
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="auto">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="" />
+    <meta
+      name="author"
+      content="Mark Otto, Jacob Thornton, and Bootstrap contributors"
+    />
+    <meta name="generator" content="Hugo 0.122.0" />
+    <title>Template</title>
+
+    <link
+      rel="canonical"
+      href="https://getbootstrap.com/docs/5.3/examples/pricing/"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@docsearch/css@3"
+    />
+
+    <link href="./assets/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <style>
+        body {
+          padding-top: 0;
+          padding-bottom: 0;
+          color: rgb(var(--bs-tertiary-color-rgb));
+        }
+  
+        /* CUSTOMIZE THE CAROUSEL
+          -------------------------------------------------- */
+  
+        /* Carousel base class */
+        .carousel {
+          margin-bottom: 4rem;
+        }
+        /* Since positioning the image, we need to help out the caption */
+        .carousel-caption {
+          bottom: 3rem;
+          z-index: 10;
+        }
+  
+        /* Declare heights because of positioning of img element */
+        .carousel-item {
+          height: 32rem;
+        }
+  
+        /* MARKETING CONTENT
+          -------------------------------------------------- */
+  
+        /* Center align the text within the three columns below the carousel */
+        .marketing .col-lg-4 {
+          margin-bottom: 1.5rem;
+          text-align: center;
+        }
+        /* rtl:begin:ignore */
+        .marketing .col-lg-4 p {
+          margin-right: 0.75rem;
+          margin-left: 0.75rem;
+        }
+        /* rtl:end:ignore */
+  
+        /* Featurettes
+          ------------------------- */
+  
+        .featurette-divider {
+          margin: 5rem 0; /* Space out the Bootstrap <hr> more */
+        }
+  
+        /* Thin out the marketing headings */
+        /* rtl:begin:remove */
+        .featurette-heading {
+          letter-spacing: -0.05rem;
+        }
+  
+        /* rtl:end:remove */
+  
+        /* RESPONSIVE CSS
+          -------------------------------------------------- */
+  
+        @media (min-width: 40em) {
+          /* Bump up size of carousel content */
+          .carousel-caption p {
+            margin-bottom: 1.25rem;
+            font-size: 1.25rem;
+            line-height: 1.4;
+          }
+  
+          .featurette-heading {
+            font-size: 50px;
+          }
+        }
+  
+        @media (min-width: 62em) {
+          .featurette-heading {
+            margin-top: 7rem;
+          }
+        }
+  
+        .bd-placeholder-img {
+          font-size: 1.125rem;
+          text-anchor: middle;
+          -webkit-user-select: none;
+          -moz-user-select: none;
+          user-select: none;
+        }
+  
+        @media (min-width: 768px) {
+          .bd-placeholder-img-lg {
+            font-size: 3.5rem;
+          }
+        }
+  
+        .b-example-divider {
+          width: 100%;
+          height: 3rem;
+          background-color: rgba(213, 224, 228, 0.1);
+          border: solid rgba(0, 0, 0, 0.15);
+          border-width: 1px 0;
+          box-shadow: inset 0 0.5em 1.5em rgba(0, 0, 0, 0.1),
+            inset 0 0.125em 0.5em rgba(0, 0, 0, 0.15);
+        }
+  
+        .b-example-vr {
+          flex-shrink: 0;
+          width: 1.5rem;
+          height: 100vh;
+        }
+  
+        .bi {
+          vertical-align: -0.125em;
+          fill: currentColor;
+        }
+  
+        .nav-scroller {
+          position: relative;
+          z-index: 2;
+          height: 2.75rem;
+          overflow-y: hidden;
+        }
+  
+        .nav-scroller .nav {
+          display: flex;
+          flex-wrap: nowrap;
+          padding-bottom: 1rem;
+          margin-top: -1px;
+          overflow-x: auto;
+          text-align: center;
+          white-space: nowrap;
+          -webkit-overflow-scrolling: touch;
+        }
+  
+        .btn-bd-primary {
+          --bd-violet-bg: #712cf9;
+          --bd-violet-rgb: 112.520718, 44.062154, 249.437846;
+  
+          --bs-btn-font-weight: 600;
+          --bs-btn-color: var(--bs-white);
+          --bs-btn-bg: var(--bd-violet-bg);
+          --bs-btn-border-color: var(--bd-violet-bg);
+          --bs-btn-hover-color: var(--bs-white);
+          --bs-btn-hover-bg: #6528e0;
+          --bs-btn-hover-border-color: #6528e0;
+          --bs-btn-focus-shadow-rgb: var(--bd-violet-rgb);
+          --bs-btn-active-color: var(--bs-btn-hover-color);
+          --bs-btn-active-bg: #5a23c8;
+          --bs-btn-active-border-color: #5a23c8;
+        }
+  
+        .bd-mode-toggle {
+          z-index: 1500;
+        }
+  
+        .bd-mode-toggle .dropdown-menu .active .bi {
+          display: block !important;
+        }
+      </style>
+
+  </head>
+  <body>
+    <div class="container py-3">
+      <!-- Navbar section -->
+      <header>
+        <div class="pb-3 mb-4 border-bottom">
+          <nav
+            class="navbar navbar-expand-lg bg-success fixed-top px-5 py-3 navbarHover"
+          >
+            <div class="container-fluid">
+              <button
+                class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbars"
+                aria-controls="navbars"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+              >
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <a
+                class="navbar-brand col-lg-3 logo-text"
+                href="index.html"
+                style="color: white; font-weight: bolder; font-size: x-large"
+                >Kaone Care</a
+              >
+              <div
+                class="collapse navbar-collapse d-lg-flex justify-content-lg-end"
+                id="navbars"
+                style="color: white"
+              >
+                <ul class="navbar-nav col-lg-6 justify-content-lg-center gap-3">
+                  <li class="nav-item">
+                    <a
+                      class="nav-link active"
+                      aria-current="page"
+                      href="./index.html"
+                      style="
+                        background-color: white;
+                        color: green;
+                        border-radius: 5px;
+                        font-weight: bold;
+                        font-size: large;
+                      "
+                      >Home</a
+                    >
+                  </li>
+                  <li class="nav-item">
+                    <a
+                      class="nav-link active"
+                      aria-current="page"
+                      href="./about.html"
+                      style="color: white; font-weight: bold; font-size: large"
+                      >About</a
+                    >
+                  </li>
+                  <li class="nav-item">
+                    <a
+                      class="nav-link active"
+                      aria-current="page"
+                      href="./contact.html"
+                      style="color: white; font-weight: bold; font-size: large"
+                      >Contact</a
+                    >
+                  </li>
+                  <li class="nav-item dropdown">
+                    <a
+                      class="nav-link dropdown-toggle"
+                      href="#"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                      style="color: white; font-weight: bold; font-size: large"
+                      >Portals</a
+                    >
+                    <ul class="dropdown-menu">
+                      <li>
+                        <a class="dropdown-item" href="./nurses/sign-in.html"
+                          >Nurses Portal</a
+                        >
+                      </li>
+                      <li>
+                        <div
+                          style="
+                            padding: 2px;
+                            background-color: rgb(236, 236, 236);
+                          "
+                        ></div>
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="./admin/sign-in.html"
+                          >Admin Portal</a
+                        >
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+        </div>
+      </header>
+
+      <!-- Main section -->
+      <main>
+        <div class="p-5 pb-md-4 mx-auto text-center">
+          <h1 class="display-4 fw-normal text-body-emphasis">Meet Team</h1>
+          <!-- <p class="fs-5 text-body-secondary">
+            Quickly access your clinic file on your fingertips. We make the
+            clinics user friendly and accessible by all. Our file system allows
+            patients to walk in and access their files and get allocated que
+            numbers.
+          </p> -->
+
+          <p></p>
+
+          <div
+          id="myCarousel"
+          class="carousel slide mb-6"
+          data-bs-ride="carousel"
+          style="background-color: #f1f8f8"
+        >
+          <div class="carousel-indicators">
+            <button
+              type="button"
+              data-bs-target="#myCarousel"
+              data-bs-slide-to="0"
+              class="active"
+              aria-current="true"
+              aria-label="Slide 1"
+            ></button>
+            <button
+              type="button"
+              data-bs-target="#myCarousel"
+              data-bs-slide-to="1"
+              aria-label="Slide 2"
+            ></button>
+            <button
+              type="button"
+              data-bs-target="#myCarousel"
+              data-bs-slide-to="2"
+              aria-label="Slide 3"
+            ></button>
+          </div>
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <svg
+                class="bd-placeholder-img"
+                width="100%"
+                height="100%"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+                preserveAspectRatio="xMidYMid slice"
+                focusable="false"
+              >
+                <rect
+                  width="100%"
+                  height="100%"
+                  fill="var(--bs-secondary-color)"
+                />
+              </svg>
+              <div class="container">
+                <div class="carousel-caption text-start">
+                  <h1>Kaone Health Recording System.</h1>
+                  <p class="opacity-75">
+                    It ensures efficient recording of patient details, automatic
+                    generation of file numbers, and daily queue numbers for
+                    seamless workflow.
+                  </p>
+                  <p>
+                    <a class="btn btn-lg btn-primary" href="#">Tshifiwa </a>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <svg
+                class="bd-placeholder-img"
+                width="100%"
+                height="100%"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+                preserveAspectRatio="xMidYMid slice"
+                focusable="false"
+              >
+                <rect
+                  width="100%"
+                  height="100%"
+                  fill="var(--bs-secondary-color)"
+                />
+              </svg>
+              <div class="container">
+                <div class="carousel-caption">
+                  <h1>Project Manager & DevOps Engineer</h1>
+                  <p>
+                    As a DevOps Engineer, I bridge the gap between software development and operations teams, ensuring the smooth operation of software systems. I design, implement, and manage infrastructure, automate processes, and optimize system performance. With my expertise in programming languages, cloud platforms, and containerization tools, I streamline software delivery, improve reliability, and reduce downtime.
+
+                    As a Project Manager, I am responsible for planning, organizing, and overseeing the execution of specific projects or initiatives within an organization. My primary goal is to deliver projects on time, within budget, and to the satisfaction of all stakeholders.
+                  </p>
+                  <p><a class="btn btn-lg btn-primary" href="./assets/img/code.jpeg">Podisho Sebopela</a></p>
+                </div>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <svg
+                class="bd-placeholder-img"
+                width="100%"
+                height="100%"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+                preserveAspectRatio="xMidYMid slice"
+                focusable="false"
+              >
+                <rect
+                  width="100%"
+                  height="100%"
+                  fill="var(--bs-secondary-color)"
+                />
+              </svg>
+              <div class="container">
+                <div class="carousel-caption text-end">
+                  <h1>Developer</h1>
+                  <p>
+                   
+                    A full stack developer who is  proficient in both front-end and back-end development, working on all layers of a web application. I handle everything from UI design to server-side logic and database management. I am skilled in various programming languages and frameworks,  and I  ensure a functional, scalable product.
+                  </p>
+                  <p>
+                    <a class="btn btn-lg btn-primary" href="https://github.com/rlindentsieni">Rilinde Ntsieni</a>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button
+            class="carousel-control-prev"
+            type="button"
+            data-bs-target="#myCarousel"
+            data-bs-slide="prev"
+          >
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button
+            class="carousel-control-next"
+            type="button"
+            data-bs-target="#myCarousel"
+            data-bs-slide="next"
+          >
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+  
+        <!-- Marketing messaging and featurettes
+    ================================================== -->
+        <!-- Wrap the rest of the page in another container to center all the content. -->
+  
+        <div class="container marketing">
+          <!-- Three columns of text below the carousel -->
+          <div class="row">
+            <div class="col-lg-4">
+              <svg
+                class="bd-placeholder-img rounded-circle"
+                width="140"
+                height="140"
+                xmlns="http://www.w3.org/2000/svg"
+                role="img"
+                aria-label="Placeholder"
+                preserveAspectRatio="xMidYMid slice"
+                focusable="false"
+              >
+                <title>Placeholder</title>
+                <image
+                  href="assets/img/tshifhiwa.jpg"
+                  width="140"
+                  height="140"
+                  preserveAspectRatio="xMidYMid slice"
+                />
+              </svg>
+              <h2 class="fw-normal">Tshifhiwa</h2>
+              <p>
+                Project Manager
+              </p>
+              <!-- <p><a class="btn btn-secondary" href="#">View details &raquo;</a></p> -->
+            </div>
+            <!-- /.col-lg-4 -->
+            <div class="col-lg-4">
+              <svg
+                class="bd-placeholder-img rounded-circle"
+                width="140"
+                height="140"
+                xmlns="http://www.w3.org/2000/svg"
+                role="img"
+                aria-label="Placeholder"
+                preserveAspectRatio="xMidYMid slice"
+                focusable="false"
+              >
+                <title>Placeholder</title>
+                <image
+                  href="assets/img/podisho.jpg"
+                  width="140"
+                  height="140"
+                  preserveAspectRatio="xMidYMid slice"
+                />
+              </svg>
+              <h2 class="fw-normal">Podisho</h2>
+              <p>
+                Software Developer
+              </p>
+              <!-- <p><a class="btn btn-secondary" href="#">View details &raquo;</a></p> -->
+            </div>
+            <!-- /.col-lg-4 -->
+            <div class="col-lg-4">
+              <svg
+                class="bd-placeholder-img rounded-circle"
+                width="140"
+                height="140"
+                xmlns="http://www.w3.org/2000/svg"
+                role="img"
+                aria-label="Placeholder"
+                preserveAspectRatio="xMidYMid slice"
+                focusable="false"
+              >
+                <title>Placeholder</title>
+                <image
+                  href="assets/img/rilindeimage.jpg"
+                  width="140"
+                  height="140"
+                  preserveAspectRatio="xMidYMid slice"
+                />
+              </svg>
+              <h2 class="fw-normal">Rilinde</h2>
+              <p>
+                UI/UX
+              </p>
+              <!-- <p><a class="btn btn-secondary" href="#">View details &raquo;</a></p> -->
+            </div>
+            <!-- /.col-lg-4 -->
+          </div>
+          <!-- /.row -->
+        </div>
+      </main>
+
+      <!-- Footer section -->
+      <footer class="pt-4 my-md-5 pt-md-5 border-top">
+        <div class="row">
+          <div class="col-12 col-md">
+            <h3 class="mb-2" width="24" height="19">KaoneCare</h3>
+            <small class="d-block mb-3 text-body-secondary">&copy; 2024</small>
+          </div>
+          <div class="col-6 col-md">
+            <h5>Features</h5>
+            <ul class="list-unstyled text-small">
+              <li class="mb-1">
+                <span class="link-secondary text-decoration-none"
+                  >Patients File Management</span
+                >
+              </li>
+              <li class="mb-1">
+                <a class="link-secondary text-decoration-none" href="#"></a>
+              </li>
+              <li class="mb-1">
+                <span class="link-secondary text-decoration-none"
+                  >Nurse Portal</span
+                >
+              </li>
+            </li>
+            <li class="mb-1">
+              <span class="link-secondary text-decoration-none"
+                >Admin Portal</span
+              >
+            </li>
+            <li class="mb-1">
+              <span class="link-secondary text-decoration-none"
+                >Medical History</span
+              >
+            </li>
+            <li class="mb-1">
+              <span class="link-secondary text-decoration-none"
+                >Medine Collection Reminder</span
+              >
+            </li>
+          </ul>
+        </div>
+
+        <div class="col-6 col-md">
+          <h5>About</h5>
+          <ul class="list-unstyled text-small">
+            <li class="mb-1">
+              <a class="link-secondary text-decoration-none" href="team.html">Team</a>
+            </li>
+            <li class="mb-1">
+              <a class="link-secondary text-decoration-none" href="FAQs.html"
+                >FAQs</a
+              >
+            </li>
+            <li class="mb-1">
+              <a class="link-secondary text-decoration-none" href="patientRights.html"
+                >Patients Rights</a
+              >
+            </li>
+            <li class="mb-1">
+              <a class="link-secondary text-decoration-none" href="privacy.html"
+                >Privacy</a
+              >
+            </li>
+            <li class="mb-1">
+              <a class="link-secondary text-decoration-none" href="termsAndCodition.html"
+                >Terms</a
+              >
+            </li>
+          </ul>
+        </div>
+
+        <div class="col-6 col-md">
+          <h5>Contact</h5>
+          <div class="list-unstyled text-small">
+            <ul class="list-unstyled text-small">
+              <li>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  class="bi bi-envelope"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1zm13 2.383-4.708 2.825L15 11.105zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741M1 11.105l4.708-2.897L1 5.383z"
+                  />
+                </svg>
+                <small class="mb-3 p-2 text-body-secondary">
+                  support@kaonecare.co.za</small
+                >
+              </li>
+              <li>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  class="bi bi-telephone"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.6 17.6 0 0 0 4.168 6.608 17.6 17.6 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.68.68 0 0 0-.58-.122l-2.19.547a1.75 1.75 0 0 1-1.657-.459L5.482 8.062a1.75 1.75 0 0 1-.46-1.657l.548-2.19a.68.68 0 0 0-.122-.58zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z"
+                  />
+                </svg>
+                <small class="mb-3 p-2 text-body-secondary">
+                  0112983365</small
+                >
+              </li>
+              <li>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  class="bi bi-geo-alt"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10"
+                  />
+                  <path
+                    d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6"
+                  />
+                </svg>
+                <small class="mb-3 p-2 text-body-secondary">
+                  116 Joe Slove Drive, Midrand</small
+                >
+              </li>
+            </ul>
+
+            <div class="d-flex gap-3">
+              <a href="#" class="link-secondary text-decoration-none">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  class="bi bi-facebook"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951"
+                  />
+                </svg>
+              </a>
+              <a href="#" class="link-secondary text-decoration-none">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  class="bi bi-instagram"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.9 3.9 0 0 0-1.417.923A3.9 3.9 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.9 3.9 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.9 3.9 0 0 0-.923-1.417A3.9 3.9 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599s.453.546.598.92c.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.5 2.5 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.5 2.5 0 0 1-.92-.598 2.5 2.5 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233s.008-2.388.046-3.231c.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92s.546-.453.92-.598c.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92m-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217m0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334"
+                  />
+                </svg>
+              </a>
+              <a href="#" class="link-secondary text-decoration-none">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  class="bi bi-linkedin"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854zm4.943 12.248V6.169H2.542v7.225zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248S2.4 3.226 2.4 3.934c0 .694.521 1.248 1.327 1.248zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016l.016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225z"
+                  />
+                </svg>
+              </a>
+              <a href="#" class="link-secondary text-decoration-none">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  class="bi bi-tiktok"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    d="M9 0h1.98c.144.715.54 1.617 1.235 2.512C12.895 3.389 13.797 4 15 4v2c-1.753 0-3.07-.814-4-1.829V11a5 5 0 1 1-5-5v2a3 3 0 1 0 3 3z"
+                  />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+  <script src="./assets/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
